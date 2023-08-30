@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>library Management</title>
+</head>
+<body>
+   <script>
+  class Book {
+  constructor(title, author, yearPublished, readStatus) {
+    this.title = title;
+    this.author = author;
+    this.yearPublished = yearPublished;
+    this.readStatus = readStatus;
+  }
+  getSummary() {
+    return `${this.title} by ${this.author}, published in ${this.yearPublished}`;
+  }
+  toggleReadStatus() {
+    this.readStatus = this.readStatus;
+  }
+}
+const library = [];
+function addBook(book) {
+  library.push(book);
+}
+function removeLastBook() {
+  library.pop();
+}
+function addBookToFront(book) {
+  library.unshift(book);
+}
+function removeFirstBook() {
+  library.shift();
+}
+function getAllTitles() {
+  return library.map(book => book.title);
+}
+
+function getBooksByAuthor(author) {
+     let c=library.filter(book => book.author===author);
+     console.log("Book written by ",author,": ");
+  for(let i in c)
+  {
+        console.log(c[i].title);
+  }
+}
+function getTotalBooksPublishedBefore(year) {
+  return library.filter(book => book.yearPublished < year).length;
+}
+function removeBookByTitle(title) {
+  const index = library.findIndex(book => book.title === title);
+     library.splice(index, 1);
+     console.log("The",title,"is removed!!");
+  }
+function getBooksByReadStatus(status) {
+  return library.filter(book => book.readStatus === status);
+}
+function getSubLibrary(start, end) {
+  return library.slice(start, end);
+}
+// Adding example books
+let a=new Book("In Search of Lost Time", "Marcel Proust", 1937, true);
+addBook(a);
+let b=new Book("The Divine Comedy", "Dante Alighieri", 1997, false);
+addBook(b);
+let c=new Book("Blood Meridian","Cormac McCarthy",2003,false);
+addBookToFront(c);
+let d=new Book("The Seventy-Five Folios And Other", "Marcel Proust", 1930, true);
+addBook(d);
+// Testing the methods
+console.log("Library Contents:");
+library.forEach(book => {
+  console.log(book.getSummary());
+});
+console.log("Titles:", getAllTitles());
+getBooksByAuthor("Marcel Proust");
+console.log("Books published before 2000:", getTotalBooksPublishedBefore(2000));
+console.log("Sub-library:", getSubLibrary(0, 1)[0].title);
+removeBookByTitle("Blood Meridian");
+console.log("After removal",getAllTitles());
+
+   </script>
+</body>
+</html>
